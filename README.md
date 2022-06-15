@@ -55,8 +55,8 @@ La descomprimimos y reemplazamos el archivo de config.
 
 ```bash
 tar xvz -f rtsp.tar.gz
-rm rtsp.tar.gz 
-cp config.yml rtsp-simple-server.yml
+rm rtsp.tar.gz
+cp config.local.yml rtsp-simple-server.yml
 ```
 
 Creamos la carpeta para las grabaciones.

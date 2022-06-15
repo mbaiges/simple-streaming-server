@@ -23,14 +23,14 @@ En caso de desear correr el server SRS en una instancia de EC2 se pueden seguir 
 
 <!-- Queda pendiente de acá para abajo (UDP abre varios puertos) -->
 
-7. Configuramos los Security Groups para RTMP, Web App, HLS, RTSP? 
+7. Configuramos los Security Groups para RTMP, Web App, HLS, RTSP, Metrics y HTTP API 
 ![EC2_7](./resources/aws/ec2_7.png)
 
 8. Ciframos con una llave de KMS 
-![EC2_9](./resources/aws/ec2_9.png)
+![EC2_9](./resources/aws/ec2_8.png)
 
 9. Habilitar Hibernate Behaviour
-![EC2_10](./resources/aws/ec2_10.png)
+![EC2_10](./resources/aws/ec2_9.png)
 
 10. Ejecutar el server rtsp-simple-server por User Data
-![EC2_11](./resources/aws/ec2_11.png)
+![EC2_11](./resources/aws/ec2_10.png)
