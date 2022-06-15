@@ -28,7 +28,7 @@ Para instalar Docker en Ubuntu, seguir la [guía de la documentación oficial](h
 
 # Configuración
 
-(TODO: Revisar si tiene configuración)
+(TODO: Cargar configuración)
 
 # Instalación
 
@@ -38,6 +38,7 @@ En la carpeta `root`, ejecutar la siguiente línea
 
 ```bash
 docker run --rm -it -e RTSP_PROTOCOLS=tcp \
+-v $PWD/../rtsp-simple-server.yml:/rtsp-simple-server.yml \
 -p 8554:8554 -p 1935:1935 -p 8888:8888 \
 --name rtsp-server aler9/rtsp-simple-server
 ```
