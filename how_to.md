@@ -91,3 +91,14 @@ http://$SERVER_IP:8888/mystream
 ```bash
 http://$PRIVATE_IP:8888/mystream
 ```
+
+## Acceder a un stream remoto 
+
+18. Configurar una instancia EC2 en AWS como se expica en aws_config.md
+
+19. Publicar el stream `remotestream` de alguna de las formas vistas previamente
+
+20. Consumir el stream 
+```bash
+ffplay rtsp://$SERVER_IP:8554/remotestream
+```
