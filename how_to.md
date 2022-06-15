@@ -26,7 +26,7 @@ ffplay rtmp://$SERVER_IP:1935/mystream
 ```bash
 curl -s http://localhost:9998/metrics
 curl -s http://localhost:9997/v1/rtmpconns/list | jq .
-curl -s -v -X POST http://localhost:9997/v1/rtmpconns/kick/306880971
+curl -s -v -X POST http://localhost:9997/v1/rtmpconns/kick/$ID_TO_KICK
 ```
  
 ## Ver grabación 
@@ -94,7 +94,7 @@ http://$PRIVATE_IP:8888/mystream
 
 ## Acceder a un stream remoto 
 
-18. Configurar una instancia EC2 en AWS como se expica en aws_config.md
+18. Configurar una instancia EC2 en AWS como se explica en `aws_config.md`
 
 19. Publicar el stream `remotestream` de alguna de las formas vistas previamente
 
