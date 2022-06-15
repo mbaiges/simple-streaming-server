@@ -15,7 +15,6 @@ rtsp-simple-server es un servidor listo para su uso y libre de dependencias que 
 
 El repositorio se encuentra en [GitHub](https://github.com/aler9/rtsp-simple-server).
 
-(TODO: Completar información de años del proyecto y contribuciones)
 El proyecto lleva 1 año y medio, y sigue en mantenimiento.
 
 ![Github Contributions](./resources/rtsp_ss_github_contributions.png)
@@ -28,7 +27,7 @@ Para instalar Docker en Ubuntu, seguir la [guía de la documentación oficial](h
 
 # Configuración
 
-(TODO: Cargar configuración)
+Se utiliza el archivo config.local.yml o config.docker.yml
 
 # Instalación
 
@@ -56,7 +55,7 @@ La descomprimimos y reemplazamos el archivo de config.
 
 ```bash
 tar xvz -f rtsp.tar.gz
-rm rtsp.tar.gz
+rm rtsp.tar.gz 
 cp config.yml rtsp-simple-server.yml
 ```
 
@@ -238,7 +237,7 @@ Se puede ver la conexión RTSP junto con la descripción de la sesión.
 Se transfiere la información sobre la sesión para el Audio y Video
 ![Wireshark - RTSP - Audio y Video](./resources/wireshark_rtsp_audio_video.png)
 
-Además, se establece el puerto por el cual se va a transmitir la data. Para esto se usa `mejor esfuerzo`, a través de `UDP`. En este caso vamos a ver donde se transfiere el audio.
+Además, se establece el puerto por el cual se va a transmitir la data. Para esto se usa `best-effort`, a través de `UDP`. En este caso vamos a ver donde se transfiere el audio.
 
 ![Wireshark - RTSP - UDP Ports](./resources/wireshark_rtsp_udp_ports.png)
 
