@@ -5,8 +5,7 @@ TPE para la materia Redes de Información
 # RTSP Simple Server
 
 rtsp-simple-server es un servidor listo para su uso y libre de dependencias que permite a los usuarios publicar y reproducir streamings en tiempo real de audio y video a través de múltiples protocolos:
-
-(TODO: Poner links faltantes)
+ 
 - [RTSP (Real Time Streaming Protocol)](https://github.com/aler9/rtsp-simple-server#rtsp-protocol)
 - [RTMP (Real Time Messaging Protocol)](https://github.com/aler9/rtsp-simple-server#rtmp-protocol)
 - [HLS](https://github.com/aler9/rtsp-simple-server#hls-protocol)
@@ -225,6 +224,17 @@ ffmpeg -re -i simple-streaming-server/demo.mp4 -c:v libx265 -c:a aac -f rtsp rts
 
 Ancho de banda
 ![Wireshark - RTSP - BW](./resources/bandwidth_rtsp_h265.png)
+
+
+## HLS 
+
+#### MPEG TS - MPEG
+
+Codec de Video 
+![Wireshark - HLS - vcodec](./resources/hls_vcodec.png)
+
+Codec de Audio 
+![Wireshark - HLS - vcodec](./resources/hls_acodec.png)
 
 # Intercambio de paquetes
 
