@@ -185,10 +185,6 @@ Como codec de Video se utiliza H.264 o MPEG-4 AVC (Advanced Video Coding). Es un
 
 En este caso fue utilizando `RTMP`.
 
-En `RTSP`, nos lo encontramos de la siguiente manera.
-
-![]
-
 ## Comparaciones
 
 ### RTMP
@@ -201,19 +197,37 @@ Por un lado, subiendo un video con codec de video `H.264` y audio `HE-AAC`, tene
 ffmpeg -re -i demo.mp4 -c:v libx264 -c:a aac -f flv rtmp://$SERVER_IP:1935/mystream
 ```
 
-(TODO: Recortar estas imágenes)
-
 ![Wireshark - RTMP - H.264 - HE-AAC](./resources/wireshark_conversations_demo_mp4_h264_he-aac.png)
 
 ### RTSP
 
-(TODO: Creo que vamos a tener que seguir los puertos UDP)
+Se puede publicar un video por RTSP 
 
-#### H.264 y MP3
+```bash
+ffmpeg -re -i simple-streaming-server/demo.mp4 -c:v libx264 -c:a aac -f rtsp rtsp://$SERVER_IP:8554/mystream 
+```
 
-#### H.265 y MP3
+Al capturar los paquetes con Wireshark podemos ver lo siguiente:
+
+#### H.264 y HE-AAC
+![Wireshark - RTSP - H.264 - HE-AAC](./resources/rstp_wireshark264.png)
+
+Ancho de banda
+![Wireshark - RTSP - BW](./resources/bandwidth_rtsp_h264.png)
+
+#### H.265 y HE-AAC
+
+```bash
+ffmpeg -re -i simple-streaming-server/demo.mp4 -c:v libx265 -c:a aac -f rtsp rtsp://$SERVER_IP:8554/mystream 
+```
+
+![Wireshark - RTSP - H.265 - HE-AAC](./resources/rstp_wireshark.png)
+
+Ancho de banda
+![Wireshark - RTSP - BW](./resources/bandwidth_rtsp_h265.png)
 
 # Intercambio de paquetes
+
 
 ## RTMP
 
