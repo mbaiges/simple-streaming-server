@@ -12,7 +12,7 @@
 ```bash
 sudo wireshark
 ```
-3. Abrir OBS Studio y comenzar el Streaming 
+3. Abrir OBS Studio y comenzar el Streaming como lo explica en el README.md 
 
 ## Conexión de dos clientes en simultáneo
 
@@ -22,7 +22,7 @@ sudo wireshark
 ffplay rtmp://$SERVER_IP:1935/mystream 
 ```
 
-5. Ver que se estableció la conexión con
+5. Ver que se estableció la conexión consultando la API
 ```bash
 curl -s http://localhost:9998/metrics
 curl -s http://localhost:9997/v1/rtmpconns/list | jq .
