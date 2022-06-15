@@ -234,7 +234,10 @@ Codec de Video
 ![Wireshark - HLS - vcodec](./resources/hls_vcodec.png)
 
 Codec de Audio 
-![Wireshark - HLS - vcodec](./resources/hls_acodec.png)
+![Wireshark - HLS - acodec](./resources/hls_acodec.png)
+
+Ancho de banda (reproducción)
+![Wireshark - HLS - BW](./resources/wireshark_hls_bandwith.png)
 
 # Intercambio de paquetes
 
