@@ -21,9 +21,10 @@ En caso de desear correr el server SRS en una instancia de EC2 se pueden seguir 
 6. Configuramos el tráfico SSH
 ![EC2_6](./resources/aws/ec2_6.png)
 
-7. Configuramos los Security Groups para RTMP, Web App, Internal API y Web RTC 
+<!-- Queda pendiente de acá para abajo (UDP abre varios puertos) -->
+
+7. Configuramos los Security Groups para RTMP, Web App, HLS, RTSP? 
 ![EC2_7](./resources/aws/ec2_7.png)
-![EC2_8](./resources/aws/ec2_8.png)
 
 8. Ciframos con una llave de KMS 
 ![EC2_9](./resources/aws/ec2_9.png)

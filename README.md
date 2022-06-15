@@ -7,9 +7,9 @@ TPE para la materia Redes de Información
 rtsp-simple-server es un servidor listo para su uso y libre de dependencias que permite a los usuarios publicar y reproducir streamings en tiempo real de audio y video a través de múltiples protocolos:
 
 (TODO: Poner links faltantes)
-- [RTSP (Real Time Streaming Protocol)](https://en.wikipedia.org/wiki/Real_Time_Streaming_Protocol)
-- [RTMP (Real Time Messaging Protocol)](https://en.wikipedia.org/wiki/Real-Time_Messaging_Protocol)
-- [HLS](https://en.wikipedia.org/wiki/HTTP_Live_Streaming)
+- [RTSP (Real Time Streaming Protocol)](https://github.com/aler9/rtsp-simple-server#rtsp-protocol)
+- [RTMP (Real Time Messaging Protocol)](https://github.com/aler9/rtsp-simple-server#rtmp-protocol)
+- [HLS](https://github.com/aler9/rtsp-simple-server#hls-protocol)
 
 ![Supported Protocols](./resources/rtsp_ss_protocols.png)
 
@@ -128,23 +128,33 @@ Para acceder al streaming, podemos hacerlo mediante `RTMP`. Un caso de uso es co
 ffplay rtmp://$SERVER_IP:1935/mystream
 ```
 
+### RTSP
+
 También podemos a través de `RTSP`.
+
+Usando `ffplay`:
 
 ```bash
 ffplay rtsp://$SERVER_IP:8554/mystream
 ```
 
-Al correr cualqueira de los comandos anteriores, se reproducirá el stream.
+Al correr cualquiera de los comandos anteriores, se reproducirá el stream.
 
 ![FFPlay Playing](./resources/ffplay_stream.gif)
+
+O usando `vlc`, por ejemplo.
+
+```bash
+vlc rtsp://$SERVER_IP:8554/mystream
+```
 
 ### HLS
 
 Accediendo a `http://$SERVER_IP:8888/mystream`, obtenemos el archivo `.m3u8`, que nos permite reproducir el streaming. Una forma de probarlo es con la siguiente [App](https://hls-js.netlify.app/demo/). Usando el URL anterior:
 
-![HLS Player](./resources/hls_player.gif)
-
 Algunos navegadores traen por un reproductor, con lo cual accediendo a la URL anterior, se comienza a reproducir el stream. Firefox es uno de ellos.
+
+![HLS Player](./resources/hls_player.gif)
 
 # Grabación de la Sesión 
 
@@ -162,7 +172,9 @@ Podemos observar los codecs utilizados durante el intercambio del protocolo `RTM
 
 Como codec de Audio se utiliza HE-AAC (High-Efficiency Advanced Audio Coding). Es un formato de compresión de audio digital. Su uso está optimizado para velocidades de transmisión bajas o muy bajas.
 
-![Wireshark](./resources/wireshark_rtmp_audio_he-aac.png)
+![Wireshark - RTMP - HE-AAC](./resources/wireshark_rtmp_audio_he-aac.png)
+
+En este caso fue utilizando `RTMP`.
 
 ## Video
 
@@ -170,7 +182,37 @@ Como codec de Audio se utiliza HE-AAC (High-Efficiency Advanced Audio Coding). E
 
 Como codec de Video se utiliza H.264 o MPEG-4 AVC (Advanced Video Coding). Es un formato de codificación de video para grabar y distribuir señales de vídeo.  Suministra imágenes de alta calidad sin consumir demasiado ancho de banda.
 
-![Wireshark](./resources/wireshark_rtmp_video_h264.png)
+![Wireshark - RTMP - H264](./resources/wireshark_rtmp_video_h264.png)
+
+En este caso fue utilizando `RTMP`.
+
+En `RTSP`, nos lo encontramos de la siguiente manera.
+
+![]
+
+## Comparaciones
+
+### RTMP
+
+#### H.264 y HE-AAC
+
+Por un lado, subiendo un video con codec de video `H.264` y audio `HE-AAC`, tenemos el siguiente ancho de banda.
+
+```bash
+ffmpeg -re -i demo.mp4 -c:v libx264 -c:a aac -f flv rtmp://$SERVER_IP:1935/mystream
+```
+
+(TODO: Recortar estas imágenes)
+
+![Wireshark - RTMP - H.264 - HE-AAC](./resources/wireshark_conversations_demo_mp4_h264_he-aac.png)
+
+### RTSP
+
+(TODO: Creo que vamos a tener que seguir los puertos UDP)
+
+#### H.264 y MP3
+
+#### H.265 y MP3
 
 # Intercambio de paquetes
 
@@ -178,9 +220,58 @@ Como codec de Video se utiliza H.264 o MPEG-4 AVC (Advanced Video Coding). Es un
 
 En `Wireshark` podemos seguir una trama `RTMP` para observar el intercambio de paquetes entre cliente y servidor.
 
-Se puede ver el Handshake RTMP y la conexión al stream `eugestream`
+Se puede ver el Handshake RTMP y la conexión al stream `mystream`
 
-![Wireshark](./resources/wireshark_rtmp_handshake.png)
+![Wireshark - RTMP - Handshake](./resources/wireshark_rtmp_handshake.png)
 
 Se transfiere la información de Audio y Video
-![Wireshark](./resources/wireshark_rtmp_audio_video.png)
+![Wireshark - RTMP - Audio y Video](./resources/wireshark_rtmp_audio_video.png)
+
+## RTSP
+
+En `Wireshark` podemos seguir una trama `RTSP` para observar el intercambio de paquetes entre cliente y servidor.
+
+Se puede ver la conexión RTSP junto con la descripción de la sesión.
+
+![Wireshark - RTSP - Handshake](./resources/wireshark_rtsp_connection.png)
+
+Se transfiere la información sobre la sesión para el Audio y Video
+![Wireshark - RTSP - Audio y Video](./resources/wireshark_rtsp_audio_video.png)
+
+Además, se establece el puerto por el cual se va a transmitir la data. Para esto se usa `mejor esfuerzo`, a través de `UDP`. En este caso vamos a ver donde se transfiere el audio.
+
+![Wireshark - RTSP - UDP Ports](./resources/wireshark_rtsp_udp_ports.png)
+
+Se puede observar el intercambio de información a través de `UDP` en el puerto `12040` en este caso.
+
+![Wireshark - RTSP - UDP Ports - Audio](./resources/wireshark_rtsp_udp_ports_mp3.png)
+
+Además, podemos observar que aparece [G.711](https://en.wikipedia.org/wiki/G.711), un tipo de codificación muy usada para comprimir y descomprimir señales de audio.
+
+# HTTP API
+
+RTSP Simple Server nos provee una API para configurar el servidor, y poder accionar sobre las conexiones. Podremos observar y cerrar sesiones RTSP, RTMP, así como observar los multiplexadores activos para HLS.
+
+La documentación de la API se puede encontrar [aquí](https://aler9.github.io/rtsp-simple-server/).
+
+![RTSP SS - HTTP API](./resources/rtsp_ss_http_api.png)
+
+Un ejemplo donde obtenemos la cantidad de conexiones abiertas `RTSP` sería el siguiente.
+
+```bash
+curl -s http://$SERVER_IP:9997/v1/rtspsessions/list | jq .
+```
+
+![RTSP SS - HTTP API - List Connections](./resources/rtsp_ss_http_api_rtps_list_conns.png)
+
+En este caso, teníamos una única conexión.
+
+# Métricas
+
+También expone un endpoint de métricas, que se pueden acceder de la siguiente manera:
+
+```bash
+curl -s http://$SERVER_IP:9998/metrics
+```
+
+![RTSP SS - Metrics](./resources/rtsp_ss_metrics.png)
