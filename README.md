@@ -2,6 +2,10 @@
 
 TPE para la materia Redes de Información
 
+Integrantes:
+- [Baiges, Matías](https://github.com/mbaiges)
+- [Piñeiro, Eugenia](https://github.com/eugepineiro)
+
 # RTSP Simple Server
 
 rtsp-simple-server es un servidor listo para su uso y libre de dependencias que permite a los usuarios publicar y reproducir streamings en tiempo real de audio y video a través de múltiples protocolos:
@@ -301,3 +305,11 @@ curl -s http://$SERVER_IP:9998/metrics
 ```
 
 ![RTSP SS - Metrics](./resources/rtsp_ss_metrics.png)
+
+
+
+# Alternativas 
+
+Se probó otro server de Streaming `Simple Realtime Server`. Como ventaja ofrece una UI para visualizar las métricas pero soporta menos protocolos entonces se optó por RSS. 
+
+[Ver Simple Realtime Server - Github](https://github.com/mbaiges/streaming-service)
