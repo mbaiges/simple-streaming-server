@@ -55,7 +55,7 @@ La descomprimimos y reemplazamos el archivo de config.
 ```bash
 tar xvz -f rtsp.tar.gz
 rm rtsp.tar.gz
-cp config.local.yml rtsp-simple-server.yml
+wget https://raw.githubusercontent.com/mbaiges/simple-streaming-server/main/config.local.yml -O rtsp-simple-server.yml
 ```
 
 Creamos la carpeta para las grabaciones.
